@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//import { TouchableOpacity } from 'react-native-gesture-handler';
-//import { HomeParamList } from '../models/HomeParamList';
+import { TouchableOpacity, Text } from 'react-native';
 import Home from '../../../screens/home';
-//import { AuthContext } from '../../providers/AuthProvider';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const Stack = createNativeStackNavigator();
-/*
+
+export const HomeStack = () => {
+
+  const { logout } = useContext(AuthContext);
+
+  return(
+    <Stack.Navigator initialRouteName='Home'>
+      <Stack.Screen name="HomeScreen"
         options={{
           headerRight: () => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  logout();
+                  logout()
                 }}
               >
                 <Text>Log out</Text>
@@ -20,16 +26,7 @@ const Stack = createNativeStackNavigator();
             )
           }
         }}
-        */
-
-export const HomeStack = () => {
-
-  return(
-    <Stack.Navigator
-        initialRouteName='Home'
-        options={{ headerShown: false }}
-    >
-      <Stack.Screen name="HomeScreen" component={Home}/>
+      component={Home}/>
     </Stack.Navigator>
   );
 }

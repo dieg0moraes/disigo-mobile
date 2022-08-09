@@ -15,13 +15,14 @@ import {
 } from 'react-native';
 import Center from './src/components/center';
 import { Routes } from './src/Router';
+import Provider from './src/providers';
 
 
 const App = () => {
 
   return (
-      <Routes/>
-  );
+    <Provider/>
+  )
 };
 
 export default App;

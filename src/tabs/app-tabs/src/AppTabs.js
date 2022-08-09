@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from '../../../stacks/home-stack';
+import AccountsStack from '../../../stacks/accounts-stack';
 /*
 import { HomeStack } from '../stacks/HomeStack';
 import { ProfileStack } from '../stacks/ProfileStack';
@@ -37,6 +38,7 @@ const AppTabs = ({}) => {
        }}
     >
       <Tabs.Screen name='HomeStack' options={{ headerShown: false }} component={HomeStack} />
+     <Tabs.Screen name='AccountsStack' options={{ headerShown: false }} component={AccountsStack} />
     </Tabs.Navigator>
   );
 

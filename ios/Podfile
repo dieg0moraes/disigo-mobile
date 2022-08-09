@@ -22,6 +22,7 @@ target 'disigo_mobile' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
   target 'disigo_mobileTests' do
     inherit! :complete

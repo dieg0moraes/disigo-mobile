@@ -1,33 +1,27 @@
 import React, { useState, useEffect, useContext } from 'react';
-//import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import Center from '../src/components/center';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthenticationStack from './stacks/authentication-stack';
 import AppTabs from './tabs/app-tabs';
+import { AuthContext } from '../src/providers/AuthProvider';
 
 const Routes = ({}) => {
-  //const { user, login, doRefresh } = useContext(AuthContext);
-  const user = {};
-  /*
+  const { user, doRefresh } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function checkLogin() {
       try {
-        const refresh_token = await CacheServer.getItem('refresh_token');
-        setLoading(false);
-        if( refresh_token != null){
-            const credentials: RefreshCredentials = {
-                refresh: refresh_token
-            };
-            doRefresh(credentials);
-        }
-
+        doRefresh()
         setLoading(false);
       } catch ( error ) {
-            console.log('refresh_token error');
-            console.log(error);
+        // TODO: Remove, added for development
+        console.log(error);
+        setLoading(false)
       }
     }
+
     checkLogin();
   }, []);
 
@@ -38,7 +32,6 @@ const Routes = ({}) => {
       </Center>
     );
   }
-  */
 
 
   return (
