@@ -5,18 +5,19 @@ const styles = StyleSheet.create({
       fontSize: 40,
       marginBottom: 100
     },
-    button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
-      backgroundColor: 'black',
-      shadowColor: 'white'
-    },
-});
 
+    input: {
+      width: '60%',
+      height: 50,
+      margin: 5,
+      borderRadius: 20,
+      backgroundColor: 'white',
+      textAlign: 'center',
+    }
+});
+/*
+ *
+ */
 export {
     styles
 }

@@ -13,12 +13,12 @@ const ActionButton = ({ action }) => {
 
     const [ isPress, setIsPress ] = React.useState(false);
 
-var touchProps = {
-    activeOpacity: 0,
-    onHideUnderlay: () => setIsPress(false),
-    onShowUnderlay: () => setIsPress(true),
-    onPress: () => { return; },                 // <-- "onPress" is apparently required
-  };
+    var touchProps = {
+        activeOpacity: 0,
+        onHideUnderlay: () => setIsPress(false),
+        onShowUnderlay: () => setIsPress(true),
+        onPress: () => { return; }, // <-- "onPress" is apparently required
+      };
 
     const contStyles = isPress ? styles.btnPress : styles.btnNormal;
     return (
