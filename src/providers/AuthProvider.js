@@ -52,7 +52,7 @@ const AuthProvider = ({children}) => {
     try {
       const refreshToken = await Cache.getItem('refresh_token');
       if(refreshToken) {
-        const response = await AuthService.refreshLogin({refresh_token: refreshToken});
+        const response = await AuthService.refreshLogin({refresh: refreshToken});
         const data = response.data;
 
         setToken(data.access_token, data.refresh_token);
@@ -60,6 +60,7 @@ const AuthProvider = ({children}) => {
         return response.data;
       }
     } catch(error) {
+      console.log(error.response);
       return;
     }
   }

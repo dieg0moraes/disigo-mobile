@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, Button } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import AuthService from '../../../services/AuthService';
 import DatePicker from 'react-native-datepicker'
-
 import Center from '../../../components/center';
-
 import { styles } from '../lib/styles';
+import InputText from '../../../wrappers/text-input';
+import Button from '../../../wrappers/button';
 
-const RegisterForm = () => {
+
+const RegisterForm = ({ onErrorCallback, okCallback }) => {
   const [ birthdate, setBirthdate ] = useState('');
   const [ name, setName ] = useState('');
   const [ last_name, setLastName ] = useState('');
@@ -29,14 +30,19 @@ const RegisterForm = () => {
         username: username,
         birthdate: transformToDateFormat()
       };
-      const response = await AuthService.userRegister(data);
+      console.log(data)
+      await AuthService.userRegister(data);
+
+      okCallback()
+
     } catch(error) {
       // TODO: Handle error
-      console.log();
+      onErrorCallback(error)
     }
   }
 
   const transformToDateFormat = () => {
+    console.log(date.toString())
     return date.toString()
   }
 
@@ -44,24 +50,24 @@ const RegisterForm = () => {
   return (
     <View>
       <Center>
-        <TextInput
+        <InputText
+          style={{width: 200}}
           placeholder='Nombre'
           value={name}
-          style={{width: 250}}
           onChangeText={setName}
           autoCapitalize='none'
         />
-        <TextInput
+        <InputText
           placeholder='Apellido'
+          style={{width: 200}}
           value={last_name}
-          style={{width: 250}}
           onChangeText={setLastName}
           autoCapitalize='none'
         />
-        <TextInput
+        <InputText
           placeholder='Nombre de usuario'
+          style={{width: 200}}
           value={username}
-          style={{width: 250}}
           autoCapitalize='none'
           onChangeText={setUsername}
         />
@@ -89,32 +95,33 @@ const RegisterForm = () => {
             }}
             onDateChange={setDate}
           />
-        <TextInput
+        <InputText
           placeholder='Email'
-          style={{width: 250}}
           value={email}
           autoCapitalize='none'
+          style={{width: 200}}
           onChangeText={setEmail}
         />
-        <TextInput
+        <InputText
           placeholder='Password'
           secureTextEntry={ true }
-          style={{width: 250}}
           value={password}
           autoCapitalize='none'
+          style={{width: 200}}
           onChangeText={setPassword}
         />
-        <TextInput
+        <InputText
           value={passConfirmation}
           onChangeText={setPassConfirmation}
           placeholder='Confirmacion de password'
           autoCapitalize='none'
-          style={{width: 250}}
+          style={{width: 200}}
           secureTextEntry={ true }
         />
         <Button
           style={styles.button}
-          title="Registrarse"
+          text='Registrarse'
+          style={{width: 200}}
           onPress={handleSumbit}
         />
       </Center>

@@ -1,4 +1,3 @@
-
 import { BaseService } from './BaseService'; import { AxiosResponse } from 'axios';
 import {
   GET_REGISTERED_ACCOUNT_ENDPOINT,

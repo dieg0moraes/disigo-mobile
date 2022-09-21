@@ -17,11 +17,15 @@ class CacheServer {
   }
 
   setItem(key, value){
-      this.cache.set(key, value);
+
+    console.log(`CACHE: -> SET item ${key} - ${value}`)
+    this.cache.set(key, value);
   }
 
   async getItem(key) {
+    console.log('CACHE: -> getting item')
     const value = await this.cache.get(key);
+    console.log('CACHE: -> getting item', value)
     return value;
   }
 

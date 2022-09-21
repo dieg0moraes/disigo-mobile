@@ -10,7 +10,12 @@ const Stack = createNativeStackNavigator();
 const AuthenticationStack = () => {
 
   return (
-    <Stack.Navigator initialRouteName='Login'>
+    <Stack.Navigator
+      initialRouteName='Login'
+      screenOptions={{
+        contentStyle: {backgroundColor: '#F7F8FA'}
+      }}
+    >
       <Stack.Screen name="Login" component={Login}/ >
       <Stack.Screen
         options={{

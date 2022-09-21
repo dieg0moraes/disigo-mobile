@@ -32,6 +32,7 @@ const AppTabs = ({}) => {
 
   return(
     <Tabs.Navigator
+    sceneContainerStyle={{ backgroundColor: 'black' }}
        tabBarOptions={{
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
