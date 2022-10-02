@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
+
 import { ActivityIndicator } from 'react-native';
 import Center from '../src/components/center';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthenticationStack from './stacks/authentication-stack';
 import AppTabs from './tabs/app-tabs';
 import { AuthContext } from '../src/providers/AuthProvider';
+
 
 const Routes = ({}) => {
   const { user, doRefresh } = useContext(AuthContext);

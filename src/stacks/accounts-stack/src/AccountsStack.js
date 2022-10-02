@@ -24,8 +24,8 @@ export const AccountStack = ({}) => {
       initialRouteName='ListProviders'>
       <Stack.Screen
         name='ListProviders'
-        component={AddAccountScreen}
-        options={ ({navigation}) => ({
+        component={AccountsList}
+        options={ ({ navigation }) => ({
           headerRight: () => {
             return (
               <TouchableOpacity
@@ -33,10 +33,14 @@ export const AccountStack = ({}) => {
                     navigation.navigate('AddAccount')
                 }}
               >
-                <Text>add</Text>
+                <Text>Agregar Cuenta</Text>
               </TouchableOpacity>
             )},
         })}
+      />
+      <Stack.Screen
+        name='AddAccount'
+        component={AddAccountScreen}
       />
     </Stack.Navigator>
   );

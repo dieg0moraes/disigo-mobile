@@ -48,7 +48,7 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
 
 
   return (
-    <View>
+    <>
       <Center>
         <InputText
           style={{width: 200}}
@@ -125,7 +125,7 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
           onPress={handleSumbit}
         />
       </Center>
-    </View>
+    </>
   );
 }
 

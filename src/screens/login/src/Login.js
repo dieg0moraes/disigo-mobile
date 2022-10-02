@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text } from 'react-native';
 import Center from '../../../components/center';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { styles } from '../lib/styles'
@@ -11,6 +11,7 @@ const Login = ({ navigation }) => {
   const { login } = useContext(AuthContext);
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
+
 
   const handleLogin = () => {
     try {

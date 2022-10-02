@@ -8449,9 +8449,15 @@
       }
     },
     "react-native-element-dropdown": {
+<<<<<<< HEAD
       "version": "2.3.0",
       "resolved": "https://registry.npmjs.org/react-native-element-dropdown/-/react-native-element-dropdown-2.3.0.tgz",
       "integrity": "sha512-HzuR1+PVS3YJD835ZAmJ7gNzkIvYJady8EwJS0Nnu6NoEeLXyJTvrD2G+dkeBmckZ+FuGjUKeYqhs508gok83w=="
+=======
+      "version": "2.1.0",
+      "resolved": "https://registry.npmjs.org/react-native-element-dropdown/-/react-native-element-dropdown-2.1.0.tgz",
+      "integrity": "sha512-y6s+MANhVy2HIfsnrHh1pVMVu9aXUPcxWH7GuCJ12W+iJiBdzmyyKYNWl37b/9IJHbsIpDyiFlCFwj21VBANeA=="
+>>>>>>> develop
     },
     "react-native-gradle-plugin": {
       "version": "0.0.7",
@@ -8511,6 +8517,7 @@
         "warn-once": "^0.1.0"
       }
     },
+<<<<<<< HEAD
     "react-native-vector-icons": {
       "version": "9.2.0",
       "resolved": "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-9.2.0.tgz",
@@ -8566,6 +8573,8 @@
         }
       }
     },
+=======
+>>>>>>> develop
     "react-redux": {
       "version": "8.0.2",
       "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-8.0.2.tgz",

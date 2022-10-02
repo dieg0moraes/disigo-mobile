@@ -1,9 +1,10 @@
 import React, { useState} from 'react';
-import { Text, Button } from 'react-native';
+import { Text } from 'react-native';
 import Center from '../../../components/center';
 import RegisterForm from './RegisterForm';
 import InputText from '../../../wrappers/text-input';
 import Modal from '../../../components/modal';
+import Button from '../../../wrappers/button';
 
 
 const Register = ({ navigation, route }) => {
@@ -25,7 +26,7 @@ const Register = ({ navigation, route }) => {
       <Center>
         <Text>Register screen</Text>
         <RegisterForm onErrorCallback={onErrorCallback}/>
-        <Button title="Go to back" onPress={() => {
+        <Button style={{}} text="Go to back" onPress={() => {
             navigation.navigate('Login');
           }} />
       </Center>

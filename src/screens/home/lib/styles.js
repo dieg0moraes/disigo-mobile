@@ -3,10 +3,9 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginTop: 25,
     },
     image: {
         backgroundColor: 'gray',
@@ -19,11 +18,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     actions: {
-        width: '100%',
+        width: '90%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+
         paddingTop: 40,
+        paddingBottom:40,
+
+        marginTop: 25,
+
+        backgroundColor: 'white',
+        borderRadius: 30
     }
 
 });

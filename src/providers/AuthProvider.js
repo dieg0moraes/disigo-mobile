@@ -42,6 +42,8 @@ const AuthProvider = ({children}) => {
       await createContext();
       return true;
     } catch(error) {
+
+      console.log(error)
     //  showErrorDialog('Login incorrecto');
       return false;
     }

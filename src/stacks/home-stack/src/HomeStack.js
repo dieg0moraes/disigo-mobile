@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TouchableOpacity, Text } from 'react-native';
 import Home from '../../../screens/home';
 import { AuthContext } from '../../../providers/AuthProvider';
+import ContactsScreen from '../../../screens/contacts';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +13,7 @@ export const HomeStack = () => {
 
   return(
     <Stack.Navigator initialRouteName='Home'>
-      <Stack.Screen name="HomeScreen"
+      <Stack.Screen name="Home"
         options={{
           headerRight: () => {
             return (
@@ -27,6 +28,7 @@ export const HomeStack = () => {
           }
         }}
       component={Home}/>
+    <Stack.Screen name='Contacts' component={ContactsScreen}/>
     </Stack.Navigator>
   );
 }

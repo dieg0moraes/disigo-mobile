@@ -16,9 +16,10 @@ const AuthenticationStack = () => {
         contentStyle: {backgroundColor: '#F7F8FA'}
       }}
     >
-      <Stack.Screen name="Login" component={Login}/ >
+      <Stack.Screen options={{ headerShown: false}} name="Login" component={Login}/ >
       <Stack.Screen
         options={{
+          headerShown: false,
           headerTitle: 'SignUp'
         }}
         name="Register"
