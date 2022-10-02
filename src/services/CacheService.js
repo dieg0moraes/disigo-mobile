@@ -23,7 +23,9 @@ class CacheServer {
   }
 
   async getItem(key) {
+    console.log('CACHE: -> getting item')
     const value = await this.cache.get(key);
+    console.log('CACHE: -> getting item', value)
     return value;
   }
 
