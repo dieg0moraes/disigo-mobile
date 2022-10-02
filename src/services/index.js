@@ -12,7 +12,7 @@ class Api extends Axios   {
         const token = await this.getToken();
         if(token != null)
             param.headers.common.Authorization = `Bearer ${token}`
-        return{
+        return {
             ...param,
         }
     });

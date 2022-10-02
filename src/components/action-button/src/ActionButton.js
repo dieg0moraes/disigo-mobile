@@ -9,7 +9,7 @@ const ActionText = ({ text }) => {
     </React.Fragment>
   );
 }
-const ActionButton = ({ action }) => {
+const ActionButton = ({ action, ...props }) => {
 
     const [ isPress, setIsPress ] = React.useState(false);
 
@@ -18,6 +18,7 @@ const ActionButton = ({ action }) => {
         onHideUnderlay: () => setIsPress(false),
         onShowUnderlay: () => setIsPress(true),
         onPress: () => { return; }, // <-- "onPress" is apparently required
+        ...props
       };
 
     const contStyles = isPress ? styles.btnPress : styles.btnNormal;
