@@ -8,7 +8,7 @@ import InputText from '../../../wrappers/text-input';
 import Button from '../../../wrappers/button';
 
 
-const RegisterForm = ({ onErrorCallback, okCallback }) => {
+const RegisterForm = ({ navigation, onErrorCallback, okCallback }) => {
   const [ birthdate, setBirthdate ] = useState('');
   const [ name, setName ] = useState('');
   const [ last_name, setLastName ] = useState('');
@@ -17,6 +17,7 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
   const [ password, setPassword ] = useState('');
   const [ passConfirmation, setPassConfirmation ] = useState('');
   const [ date, setDate ] = useState(new Date());
+  const [ contactPhone, setContactPhone ] = useState('');
 
   const handleSumbit = async () => {
 
@@ -28,7 +29,8 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
         password: password,
         password_confirmation: passConfirmation,
         username: username,
-        birthdate: transformToDateFormat()
+        birthdate: transformToDateFormat(),
+        contact_phone: contactPhone
       };
       console.log(data)
       await AuthService.userRegister(data);
@@ -49,7 +51,7 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
 
   return (
     <>
-      <Center>
+      <Center >
         <InputText
           style={{width: 200}}
           placeholder='Nombre'
@@ -103,6 +105,13 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
           onChangeText={setEmail}
         />
         <InputText
+          placeholder='Telefono'
+          value={contactPhone}
+          autoCapitalize='none'
+          style={{width: 200}}
+          onChangeText={setContactPhone}
+        />
+        <InputText
           placeholder='Password'
           secureTextEntry={ true }
           value={password}
@@ -124,6 +133,9 @@ const RegisterForm = ({ onErrorCallback, okCallback }) => {
           style={{width: 200}}
           onPress={handleSumbit}
         />
+        <Button style={styles.button} text="Go to back" onPress={() => {
+            navigation.navigate('Login');
+          }} />
       </Center>
     </>
   );

@@ -1,17 +1,15 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, TouchableHighlight, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from '../../../stores/slices/contactsSlice';
 import Contacts from 'react-native-contacts';
 import { List } from 'react-native-paper';
 import Center from '../../../components/center';
+import FriendsService from '../../../services/FriendsService';
 
 
-const ContactsScreen = () => {
+const ContactsScreen = ({ navigation }) => {
 
-
-  // const contacts = useSelector(state => state.contacts?.contacts)
-  // const dispatch = useDispatch();
   const [contacts, setContacts] = React.useState([]);
 
   React.useEffect(() => {
@@ -22,15 +20,44 @@ const ContactsScreen = () => {
 
   }, [contacts])
 
+  const sanitizeNumer = (number) => {
+    let onlyNumbers = number.replace('/\D/g', '');
+    onlyNumbers = onlyNumbers.replace(' ', '');
+    onlyNumbers = onlyNumbers.replace('-', '');
+    onlyNumbers = onlyNumbers.replace('(', '');
+    onlyNumbers = onlyNumbers.replace(')', '');
+    return onlyNumbers;
+  }
+
+  const onPressContact = async (contact) => {
+    const number = contact.phoneNumbers[0].number
+    const sanitized = sanitizeNumer(number);
+
+    try {
+      const resp = await FriendsService.findFriendByPhone(sanitized);
+      const data = resp.data;
+      if (data['message'] !== 'not found')
+        navigation.navigate('SendMoneyScreen', {accounts: resp.data['accounts'] } );
+
+    } catch (e) {
+      console.log(e)
+    }
+
+  }
+
+
   const renderContact = (c) => {
 
     return (
-      <Pressable style={{backgroundColor: 'rgb(210, 230, 255)'}}>
+      <TouchableHighlight
+        onPress={() => onPressContact(c)}
+        style={{backgroundColor: 'rgb(210, 230, 255)'}}
+      >
         <List.Item
           title={c.familyName + " " + c.phoneNumbers[0].number}
           style={{borderColor: 'grey', borderWidth: 0.2}}
         />
-      </Pressable>
+      </TouchableHighlight>
     )
   }
 

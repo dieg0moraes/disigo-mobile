@@ -25,10 +25,7 @@ const Register = ({ navigation, route }) => {
       <Modal error={error} visible={modalVisible} closeModal={close} />
       <Center>
         <Text>Register screen</Text>
-        <RegisterForm onErrorCallback={onErrorCallback}/>
-        <Button style={{}} text="Go to back" onPress={() => {
-            navigation.navigate('Login');
-          }} />
+        <RegisterForm navigation={navigation} onErrorCallback={onErrorCallback}/>
       </Center>
     </>
   );

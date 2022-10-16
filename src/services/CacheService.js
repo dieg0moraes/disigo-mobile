@@ -1,5 +1,6 @@
 import { Cache } from 'react-native-cache';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 class CacheServer {
 
@@ -11,21 +12,42 @@ class CacheServer {
       policy: {
         maxEntries: 500
       },
-      backend: AsyncStorage
+      backend: EncryptedStorage
 
     });
   }
 
   setItem(key, value){
-
-    console.log(`CACHE: -> SET item ${key} - ${value}`)
     this.cache.set(key, value);
   }
 
+  async setSecureItem(key, value) {
+    try {
+      console.log(value)
+      this.cache.set(
+          key,
+          JSON.stringify(value)
+      );
+          // Congrats! You've just stored your first value!
+    } catch (error) {
+          // There was an error on the native side
+    }
+  }
+  async getSecureItem(key) {
+    try {
+      const item = await this.cache.get(
+          key
+      );
+      console.log(item)
+      return JSON.parse(item);
+          // Congrats! You've just stored your first value!
+    } catch (error) {
+          // There was an error on the native side
+    }
+  }
+
   async getItem(key) {
-    console.log('CACHE: -> getting item')
     const value = await this.cache.get(key);
-    console.log('CACHE: -> getting item', value)
     return value;
   }
 

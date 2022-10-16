@@ -4,6 +4,7 @@ import { TouchableOpacity, Text } from 'react-native';
 import Home from '../../../screens/home';
 import { AuthContext } from '../../../providers/AuthProvider';
 import ContactsScreen from '../../../screens/contacts';
+import SendMoneyScreen from '../../../screens/send-money';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,8 @@ export const HomeStack = () => {
           }
         }}
       component={Home}/>
-    <Stack.Screen name='Contacts' component={ContactsScreen}/>
+      <Stack.Screen name='Contacts' component={ContactsScreen}/>
+      <Stack.Screen name='SendMoneyScreen' component={SendMoneyScreen}/>
     </Stack.Navigator>
   );
 }

@@ -62,14 +62,14 @@ const AddBankAccount = ({ navigation, backCallback }) => {
       setLoading(true);
 
       await BankingService.addAccount(accountData);
-
       setLoading(false);
 
-      okMessage()
+      //okMessage()
 
     } catch(error) {
       setLoading(false)
       errorMessage()
+      console.log(error)
     }
   }
 
@@ -140,6 +140,7 @@ const AddBankAccount = ({ navigation, backCallback }) => {
   );
 
 }
+
 const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
