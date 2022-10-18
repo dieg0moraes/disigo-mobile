@@ -11,7 +11,6 @@ const getContacts = async (thunk) => {
         number: c.phoneNumbers[0]?.number
     }
   });
-  console.log(list)
   return list;
 
 };
@@ -37,7 +36,6 @@ export const contactsSlice = createSlice({
           })
           .catch(c => console.log(c))
       }
-      console.log(state)
     }
   },
   extraReducers: (builder) => {

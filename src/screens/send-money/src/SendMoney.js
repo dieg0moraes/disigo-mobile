@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { showModal } from '../../../stores/slices/errorsSlice';
 import { Text, StyleSheet, ActivityIndicator, Alert, BackHandler } from 'react-native';
 import Center from '../../../components/center';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -12,33 +14,32 @@ import CacheService from '../../../services/CacheService';
 import BankingService from '../../../services/BankingService';
 
 const SendMoney = ({route, navigation}) => {
+
   const [ amount, setAmount ] = React.useState(0);
-
   const [ concept, setConcept ] = React.useState(0);
-
   const [ isFocusOrigin, setIsFocusOrigin ] = useState(false);
-
   const [ originAccountSelected, setOriginAccountSelected ] = useState('');
-
   const [ isFocusDestino, setIsFocusDestino ] = useState(false);
-
   const [ destinationAccount, setDestinationAccount ] = useState('santander');
-
   const [ originAccounts, setOriginAccounts ] = useState([]);
-
   const [ loading, setLoading ] = useState(false);
+
+  const dispatch = useDispatch();
+
+
 
   const destinationAccounts = route.params['accounts'];
 
   React.useEffect(() =>{
     getOriginAccountsAvailable()
+    setDestinationAccount(destinationAccounts[0])
   }, []);
 
   const onPressMakeTransfer = async () => {
     try {
       setLoading(true)
       const data = {
-        'destination_internal_id': destinationAccount,
+        'destination_internal_id': destinationAccount['internal_id'],
         'amount': amount,
         'token': '',
         'origin_internal_id': originAccountSelected,
@@ -46,13 +47,19 @@ const SendMoney = ({route, navigation}) => {
         'currency': 'UYU',
         'owner': 'Benjamin'
       }
-     const response = await BankingService.postMakeTransfer(data);
+
+      const response = await BankingService.postMakeTransfer(data);
+
+      dispatch(showModal({message: 'Transferencia realizada'}))
+
     } catch (error) {
-      console.log(error)
+      dispatch(showModal({message: 'Revisa los datos ingresados'}))
     }
+
     setLoading(false)
 
   }
+
 
   const getOriginAccountsAvailable = async () => {
     try {
@@ -74,16 +81,6 @@ const SendMoney = ({route, navigation}) => {
     }
   }
 
-  const getDestinationAccountsAvailable = () => {
-      return destinationAccounts.map(
-        (acc) => {
-          return {
-            label: `${acc.name} - ${acc.number}`,
-            value: `${acc.internal_id}`
-          }
-        }
-      );
-  }
 
   return (
     <Center>
@@ -126,35 +123,6 @@ const SendMoney = ({route, navigation}) => {
         value={amount}
         onChangeText={setAmount}
       />
-     <Dropdown
-          style={[styles.dropdown, isFocusDestino && { borderColor: 'blue', width:'50%', marginBottom: 20 }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={getDestinationAccountsAvailable()}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocusDestino ? 'Cuenta destino' : '...'}
-          searchPlaceholder="Search..."
-          value={destinationAccount}
-          onFocus={() => setIsFocusDestino(true)}
-          onBlur={() => setIsFocusDestino(false)}
-          onChange={item => {
-            setDestinationAccount(item.value);
-            setIsFocusDestino(false);
-          }}
-          renderLeftIcon={() => (
-            <AntDesign
-              style={styles.icon}
-              color={isFocusDestino ? 'blue' : 'black'}
-              name="Safety"
-              size={20}
-            />
-          )}
-        />
       <InputText
         placeholder='Concepto'
         style={{width: 200}}

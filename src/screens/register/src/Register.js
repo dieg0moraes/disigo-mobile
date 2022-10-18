@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { Text } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import Center from '../../../components/center';
 import RegisterForm from './RegisterForm';
 import InputText from '../../../wrappers/text-input';
@@ -17,16 +17,13 @@ const Register = ({ navigation, route }) => {
 
   const onErrorCallback = (error) => {
     setModalVisible(true)
-    setError(JSON.stringify(error.response.data))
+    setError('Revisa los datos ingresados')
   }
 
   return(
     <>
-      <Modal error={error} visible={modalVisible} closeModal={close} />
-      <Center>
-        <Text>Register screen</Text>
-        <RegisterForm navigation={navigation} onErrorCallback={onErrorCallback}/>
-      </Center>
+      <Modal/>
+      <RegisterForm navigation={navigation} onErrorCallback={onErrorCallback}/>
     </>
   );
 }

@@ -27,7 +27,6 @@ const AuthProvider = ({children}) => {
       setUser(userContext);
       return true;
     } catch(error) {
-  //    showErrorDialog('Error creating context');
       return false;
     }
   }
@@ -42,9 +41,6 @@ const AuthProvider = ({children}) => {
       await createContext();
       return true;
     } catch(error) {
-
-      console.log(error)
-    //  showErrorDialog('Login incorrecto');
       return false;
     }
   }
@@ -53,7 +49,7 @@ const AuthProvider = ({children}) => {
   const doRefresh = async () => {
     try {
       const refreshToken = await Cache.getItem('refresh_token');
-      if(refreshToken) {
+      if (refreshToken) {
         const response = await AuthService.refreshLogin({refresh: refreshToken});
         const data = response.data;
 
@@ -62,7 +58,6 @@ const AuthProvider = ({children}) => {
         return response.data;
       }
     } catch(error) {
-      console.log(error.response);
       return;
     }
   }
@@ -73,6 +68,8 @@ const AuthProvider = ({children}) => {
         login,
         logout: () => {
           Cache.getItem('user');
+          Cache.setItem('access_token', null);
+          Cache.setItem('refresh_token', null);
           setUser(null);
         },
         doRefresh

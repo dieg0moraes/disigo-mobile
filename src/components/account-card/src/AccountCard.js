@@ -13,7 +13,7 @@ const AccountCard = ({account, styles, handleDelete, handleLogin}) => {
                 <Paragraph>{account.number}</Paragraph>
             </Card.Content>
             <Card.Actions style={{display: 'flex', justifyContent:'center' }}>
-                <Button onPress={handleDelete}>Delete account</Button>
+                <Button onPress={() => handleDelete(account)}>Delete account</Button>
             </Card.Actions>
         </Card>
     );

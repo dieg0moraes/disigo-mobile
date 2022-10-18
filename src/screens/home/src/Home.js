@@ -1,9 +1,16 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, SafeAreaView, View } from 'react-native';
 import ActionButton from '../../../components/action-button';
 import { styles } from '../lib/styles';
 
+import { showModal } from '../../../stores/slices/errorsSlice';
+import { useDispatch } from 'react-redux';
+
 const Home = ({ navigation }) =>{
+
+  const dispatch = useDispatch();
+
+  const handleShowModal = () => dispatch(showModal({message: 'Hola'}));
 
   return (
     <View style={styles.container}>
@@ -11,7 +18,7 @@ const Home = ({ navigation }) =>{
         <ActionButton action={{ text: 'Contactos' }} onPress={() => {
           navigation.navigate('Contacts')
         }}/>
-        <ActionButton action={{ text: 'Crear grupo' }}/>
+        <ActionButton action={{ text: 'Crear grupo' }} onPress={handleShowModal}/>
       </View>
     </View>
   )

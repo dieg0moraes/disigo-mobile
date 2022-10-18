@@ -58,6 +58,10 @@ class BaseService{
   post (url, data, config) {
     return this.client.post(url, data, config);
   }
+
+  delete (url, data, config) {
+    return this.client.delete(url, data, config);
+  }
 }
 
 export { BaseService };

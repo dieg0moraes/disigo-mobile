@@ -23,7 +23,6 @@ class CacheServer {
 
   async setSecureItem(key, value) {
     try {
-      console.log(value)
       this.cache.set(
           key,
           JSON.stringify(value)
@@ -38,7 +37,6 @@ class CacheServer {
       const item = await this.cache.get(
           key
       );
-      console.log(item)
       return JSON.parse(item);
           // Congrats! You've just stored your first value!
     } catch (error) {

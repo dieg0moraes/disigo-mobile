@@ -362,11 +362,19 @@ PODS:
     - React-perflogger (= 0.69.3)
   - RNCAsyncStorage (1.17.8):
     - React-Core
+  - RNDateTimePicker (6.5.2):
+    - React-Core
   - RNScreens (3.15.0):
     - React-Core
     - React-RCTImage
+  - RNSentry (4.6.1):
+    - React-Core
+    - Sentry (= 7.27.1)
   - RNVectorIcons (9.2.0):
     - React-Core
+  - Sentry (7.27.1):
+    - Sentry/Core (= 7.27.1)
+  - Sentry/Core (7.27.1)
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -432,7 +440,9 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -451,6 +461,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - OpenSSL-Universal
+    - Sentry
     - SocketRocket
     - YogaKit
 
@@ -525,8 +536,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -581,8 +596,11 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 607eb048e22a16388c908ee1f6644200e8d1e19b
   ReactCommon: af7636436b382db7cde4583bbd642f0978e6e3ed
   RNCAsyncStorage: 1ebf62933b96e4333db27ee17dbb51bf54374cb6
+  RNDateTimePicker: cd91ac7b1580189ea87270656f4ec4fa77d689e3
   RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
+  RNSentry: f8591057d48d4f6d64196a76cbca67895667b033
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
+  Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 44c64131616253fa83366295acdbce3d14926041
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

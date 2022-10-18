@@ -13,9 +13,14 @@ export const HomeStack = () => {
   const { logout } = useContext(AuthContext);
 
   return(
-    <Stack.Navigator initialRouteName='Home'>
+    <Stack.Navigator
+      initialRouteName='Home'
+    >
+
       <Stack.Screen name="Home"
         options={{
+          headerShown:true,
+          title:'',
           headerRight: () => {
             return (
               <TouchableOpacity
@@ -23,14 +28,20 @@ export const HomeStack = () => {
                   logout()
                 }}
               >
-                <Text>Log out</Text>
+                <Text>LOGOUT</Text>
               </TouchableOpacity>
             )
           }
         }}
       component={Home}/>
-      <Stack.Screen name='Contacts' component={ContactsScreen}/>
-      <Stack.Screen name='SendMoneyScreen' component={SendMoneyScreen}/>
+      <Stack.Screen
+        name='Contacts'
+        component={ContactsScreen}
+        options={{ headerShown: true, title: '' }}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, title: '' }}
+        name='SendMoneyScreen' component={SendMoneyScreen}/>
     </Stack.Navigator>
   );
 }

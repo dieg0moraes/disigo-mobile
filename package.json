@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.8",
+    "@react-native-community/datetimepicker": "^6.5.2",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "@reduxjs/toolkit": "^1.8.4",
+    "@sentry/react-native": "^4.6.1",
     "axios": "^0.27.2",
     "axios-auth-refresh": "^3.3.3",
     "react": "18.0.0",

@@ -13,3 +13,4 @@ export const GET_REGISTERED_ACCOUNT_ENDPOINT = GET_ACCOUNTS_PROVIDER('all');
 export const GET_PROVIDERS = `banking/provider/`
 export const POST_ADD_ACCOUNT = 'banking/add-account';
 export const POST_MAKE_TRANSFER = 'banking/process-transfer/';
+export const DELETE_ACCOUNT = 'banking/delete-account/';

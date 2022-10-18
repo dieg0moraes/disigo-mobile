@@ -44,6 +44,10 @@ class Api extends Axios   {
   post(url, data, config) {
     return this.post (url, data, config);
   }
+  delete(url, data, config) {
+
+    return this.post (url, data, config);
+  }
 }
 
 export default Api;

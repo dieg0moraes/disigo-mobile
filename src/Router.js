@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthenticationStack from './stacks/authentication-stack';
 import AppTabs from './tabs/app-tabs';
 import { AuthContext } from '../src/providers/AuthProvider';
+import Modal from './components/modal';
 
 
 const Routes = ({}) => {
@@ -38,6 +39,7 @@ const Routes = ({}) => {
 
   return (
     <NavigationContainer>
+      <Modal error='asdsa' visible={true} />
       { user ? <AppTabs/> : <AuthenticationStack/>}
     </NavigationContainer>
   );

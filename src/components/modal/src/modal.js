@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { hideModal } from '../../../stores/slices/errorsSlice';
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 
 
-const ModalPopUp = ({ visible, closeModal, error }) => {
+const ModalPopUp = ({ closeModal, error }) => {
+
+  const visible = useSelector(state => state.errors.errors.showModal)
+  const message = useSelector(state => state.errors.errors.message)
+
+  const dispatcher = useDispatch();
+
   return (
       <Modal
         animationType="slide"
@@ -11,12 +19,12 @@ const ModalPopUp = ({ visible, closeModal, error }) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>{error}</Text>
+            <Text style={styles.modalText}>{message}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={closeModal}
+              onPress={() => dispatcher(hideModal())}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Cerrar</Text>
             </Pressable>
           </View>
         </View>

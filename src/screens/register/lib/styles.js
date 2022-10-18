@@ -12,8 +12,11 @@ const styles = StyleSheet.create({
       paddingHorizontal: 32,
       borderRadius: 4,
       elevation: 3,
-      backgroundColor: 'black',
-      shadowColor: 'white'
+      color: 'white',
+      borderRadius: 20,
+      width: '50%',
+      overflow:'hidden',
+      backgroundColor: '#0D5DBC',
     },
 });
 

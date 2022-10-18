@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, ScrollView } from 'react-native';
 import AuthService from '../../../services/AuthService';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import DatePicker from 'react-native-datepicker'
+
 import Center from '../../../components/center';
 import { styles } from '../lib/styles';
 import InputText from '../../../wrappers/text-input';
@@ -19,6 +23,10 @@ const RegisterForm = ({ navigation, onErrorCallback, okCallback }) => {
   const [ date, setDate ] = useState(new Date());
   const [ contactPhone, setContactPhone ] = useState('');
 
+  const [ day, setDay ] = useState(1);
+  const [ month, setMonth ] = useState(1);
+  const [ year, setYear ] = useState(1);
+
   const handleSumbit = async () => {
 
     try {
@@ -29,11 +37,11 @@ const RegisterForm = ({ navigation, onErrorCallback, okCallback }) => {
         password: password,
         password_confirmation: passConfirmation,
         username: username,
-        birthdate: transformToDateFormat(),
+        birthdate: $`{year}/{month}/{day}`,
         contact_phone: contactPhone
       };
-      console.log(data)
-      await AuthService.userRegister(data);
+      const response = await AuthService.userRegister(data);
+      console.log(response)
 
       okCallback()
 
@@ -73,30 +81,30 @@ const RegisterForm = ({ navigation, onErrorCallback, okCallback }) => {
           autoCapitalize='none'
           onChangeText={setUsername}
         />
-        <DatePicker
-            style={{width: 200}}
-            date={date}
-            mode="date"
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="1950-05-01"
-            confirmBtnText="Confirmar"
-            cancelBtnText="Cancelar"
-            iconSource={{uri: ''}}
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-              // ... You can check the source to find the other keys.
-            }}
-            onDateChange={setDate}
+        <View style={{ display: 'flex', flexDirection:'row'}}>
+          <InputText
+            width='15%'
+            placeholder='Anio'
+            value={year}
+            onChangeText={setYear}
+            keyboardType='numeric'
           />
+          <InputText
+            width='15%'
+            placeholder='Mes'
+            value={month}
+            onChangeText={setMonth}
+            keyboardType='numeric'
+          />
+          <InputText
+            width='15%'
+            placeholder='Dia'
+            value={day}
+            onChangeText={setDay}
+            keyboardType='numeric'
+          />
+
+        </View>
         <InputText
           placeholder='Email'
           value={email}
@@ -133,7 +141,8 @@ const RegisterForm = ({ navigation, onErrorCallback, okCallback }) => {
           style={{width: 200}}
           onPress={handleSumbit}
         />
-        <Button style={styles.button} text="Go to back" onPress={() => {
+        <Button
+            style={styles.button} text="Go to back" onPress={() => {
             navigation.navigate('Login');
           }} />
       </Center>

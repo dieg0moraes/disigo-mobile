@@ -9,13 +9,19 @@ import {
   GET_ACCOUNTS_PROVIDER,
   GET_BANK_LOGOUT,
   GET_PROVIDERS,
-  POST_MAKE_TRANSFER
+  POST_MAKE_TRANSFER,
+  DELETE_ACCOUNT
 } from './endpoints/BankingEndpoints';
 
 
 class BankingService extends BaseService {
   constructor(){
     super();
+  }
+
+  deleteAccount = (data) => {
+    const response = this.post(DELETE_ACCOUNT, data);
+    return response;
   }
 
   getUserAccounts = () => {
@@ -43,12 +49,12 @@ class BankingService extends BaseService {
     try {
       const response = await this.post(POST_CREATE_ACCOUNT, account);
 
-      const data = await CacheService.getSecureItem('accounts')
+      let data = await CacheService.getSecureItem('accounts')
 
-      console.log(data)
 
       if(data == undefined) {
         CacheService.setSecureItem('accounts', []);
+        data = [];
       }
 
       if (response.status == 201) {
@@ -69,7 +75,6 @@ class BankingService extends BaseService {
           CacheService.setSecureItem('accounts', data);
         })
 
-        console.log(data)
       }
 
 

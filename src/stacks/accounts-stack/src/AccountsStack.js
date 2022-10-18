@@ -1,24 +1,15 @@
 import React, { useContext } from 'react';
-//import { BankingContext } from '../../providers/BankingSessionProvider';
 import { Button, TouchableOpacity, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AccountsList from '../../../screens/accounts-list';
 import AddAccountScreen from '../../../screens/add-bank-account';
-//import AddAccountScreen from '../banking/AddAccountScreen';
 
 
 const Stack = createNativeStackNavigator();
-/*
-      <Stack.Screen
-        name='ListProviders'
-        component={ListProviderScreen} />
-      <Stack.Screen name='AccountMovementsList' component={ AccountMovementListScreen } />
-      <Stack.Screen name='AddAccount' component={ AddAccountScreen } />
-*/
 
 export const AccountStack = ({}) => {
-  //const { provider, logout } = useContext(BankingContext);
+
   return(
     <Stack.Navigator
       initialRouteName='ListProviders'>
@@ -26,6 +17,7 @@ export const AccountStack = ({}) => {
         name='ListProviders'
         component={AccountsList}
         options={ ({ navigation }) => ({
+          title:'',
           headerRight: () => {
             return (
               <TouchableOpacity
@@ -39,6 +31,9 @@ export const AccountStack = ({}) => {
         })}
       />
       <Stack.Screen
+        options= {({}) => ({
+          title: ''
+        })}
         name='AddAccount'
         component={AddAccountScreen}
       />
