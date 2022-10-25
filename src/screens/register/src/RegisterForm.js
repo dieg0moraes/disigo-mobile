@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, ScrollView, SafeAreaView } from 'react-native';
+import { View, TextInput, Text, ScrollView } from 'react-native';
 import AuthService from '../../../services/AuthService';
-import { useDispatch } from 'react-redux';
-import { showModal } from '../../../stores/slices/errorsSlice';
 
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+import DatePicker from 'react-native-datepicker'
 
 import Center from '../../../components/center';
 import { styles } from '../lib/styles';
@@ -11,15 +12,16 @@ import InputText from '../../../wrappers/text-input';
 import Button from '../../../wrappers/button';
 
 
-const RegisterForm = ({ navigation }) => {
+const RegisterForm = ({ navigation, onErrorCallback, okCallback }) => {
+  const [ birthdate, setBirthdate ] = useState('');
   const [ name, setName ] = useState('');
   const [ last_name, setLastName ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ passConfirmation, setPassConfirmation ] = useState('');
+  const [ date, setDate ] = useState(new Date());
   const [ contactPhone, setContactPhone ] = useState('');
-  const dispatch = useDispatch();
 
   const [ day, setDay ] = useState(1);
   const [ month, setMonth ] = useState(1);
@@ -35,25 +37,29 @@ const RegisterForm = ({ navigation }) => {
         password: password,
         password_confirmation: passConfirmation,
         username: username,
-        birthdate: `${year}-${month}-${day}`,
+        birthdate: $`{year}/{month}/{day}`,
         contact_phone: contactPhone
-
       };
-      await AuthService.userRegister(data);
-      dispatch(showModal({message:'Completo!'}))
+      const response = await AuthService.userRegister(data);
+      console.log(response)
 
+      okCallback()
 
     } catch(error) {
       // TODO: Handle error
-      dispatch(showModal({message:'Revisa los datos ingresados'}))
+      onErrorCallback(error)
     }
+  }
+
+  const transformToDateFormat = () => {
+    console.log(date.toString())
+    return date.toString()
   }
 
 
   return (
     <>
-    <ScrollView>
-      <Center styles={{paddingTop: 50}}>
+      <Center >
         <InputText
           style={{width: 200}}
           placeholder='Nombre'
@@ -140,7 +146,6 @@ const RegisterForm = ({ navigation }) => {
             navigation.navigate('Login');
           }} />
       </Center>
-    </ScrollView>
     </>
   );
 }

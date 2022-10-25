@@ -1,28 +1,50 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { SafeAreaView, TouchableHighlight } from 'react-native';
 import Contacts from 'react-native-contacts';
 import { List } from 'react-native-paper';
 import FriendsService from '../../../services/FriendsService';
 import Modal from '../../../components/modal';
 import TextInput from '../../../wrappers/text-input';
+import { PermissionsAndroid } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { showModal } from '../../../stores/slices/errorsSlice';
-import { fetchContactActionAsync } from '../../../stores/slices/contactsSlice';
+
 
 
 const ContactsScreen = ({ navigation }) => {
 
-  const contacts = useSelector(state => state.contacts.contacts);
-
+  const [ modalVisible, setModalVisible ] = useState(false);
+  const [ error, setError ] = useState('');
+  const [contacts, setContacts] = React.useState([]);
   const dispatcher = useDispatch();
 
-  React.useEffect(
-    () => {
-      dispatcher(fetchContactActionAsync());
-    }
 
-  ,[]);
+  React.useEffect(() => {
+
+    if (Platform.OS == 'android') {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+          title: 'Contacts',
+          message: 'This app would like to view your contacts.',
+          buttonPositive: 'Please accept bare mortal',
+      }).then( () => {
+        Contacts.getAll()
+          .then(c => c)
+          .then(c => setContacts(c))
+          .catch(e => console.error(e))
+      }
+      ).catch((error) => {
+          console.error('Permission error: ', error);
+      });
+
+    } else {
+      Contacts.getAll()
+        .then(c => c)
+        .then(c => setContacts(c))
+        .catch(e => console.error(e))
+    }
+    console.log(contacts)
+
+  }, [])
 
   const sanitizeNumer = (number) => {
     let onlyNumbers = number.replace('/\D/g', '');
@@ -34,13 +56,13 @@ const ContactsScreen = ({ navigation }) => {
   }
 
   const onPressContact = async (contact) => {
-    const number = contact.number
+    const number = contact.phoneNumbers[0].number
     const sanitized = sanitizeNumer(number);
 
     try {
       const resp = await FriendsService.findFriendByPhone(sanitized);
       const data = resp.data;
-
+      console.log(data)
       if (data['message'] !== 'not found') {
         navigation.navigate('SendMoneyScreen', {accounts: resp.data['accounts'] } );
       } else {
@@ -68,7 +90,7 @@ const ContactsScreen = ({ navigation }) => {
       >
         <List.Item
           key={k}
-          title={c.name + " " + c.number}
+          title={c.familyName + " " + c.phoneNumbers[0].number}
         />
       </TouchableHighlight>
     )

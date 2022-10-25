@@ -37,7 +37,7 @@ export const HomeStack = () => {
       <Stack.Screen
         name='Contacts'
         component={ContactsScreen}
-        options={{ headerShown: true, title: 'Contactos' }}
+        options={{ headerShown: true, title: '' }}
       />
       <Stack.Screen
         options={{ headerShown: true, title: '' }}

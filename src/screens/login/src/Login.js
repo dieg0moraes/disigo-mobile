@@ -8,7 +8,6 @@ import Button from '../../../wrappers/button';
 import InputText from '../../../wrappers/text-input';
 
 
-
 const Login = ({ navigation }) => {
   const { login } = useContext(AuthContext);
   const [ email, setEmail ] = useState('');
@@ -72,12 +71,6 @@ const Login = ({ navigation }) => {
             navigation.navigate('Register');
           }}
           text='Register'
-        />
-        <Button
-          onPress={() => {
-            console.log('daaaaad');
-          }}
-          text='Olvide mi contrasena'
         />
       </Center>
     </>

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserAccounts } from '../../../stores/slices/accountsSlice';
+import { useDispatch } from 'react-redux';
 import { showModal } from '../../../stores/slices/errorsSlice';
-
 import { Text, StyleSheet, ActivityIndicator, Alert, BackHandler } from 'react-native';
 import Center from '../../../components/center';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -23,10 +21,12 @@ const SendMoney = ({route, navigation}) => {
   const [ originAccountSelected, setOriginAccountSelected ] = useState('');
   const [ isFocusDestino, setIsFocusDestino ] = useState(false);
   const [ destinationAccount, setDestinationAccount ] = useState('santander');
-  const originAccounts = useSelector((state) => state.accounts.userAccounts);
+  const [ originAccounts, setOriginAccounts ] = useState([]);
   const [ loading, setLoading ] = useState(false);
 
   const dispatch = useDispatch();
+
+
 
   const destinationAccounts = route.params['accounts'];
 
@@ -63,9 +63,21 @@ const SendMoney = ({route, navigation}) => {
 
   const getOriginAccountsAvailable = async () => {
     try {
-      dispatch(fetchUserAccounts());
+      const data = await CacheService.getSecureItem('accounts');
+
+      const accounts = data.map(
+        (acc) => {
+          return {
+            label: `${acc.name} - ${acc.number}`,
+            value: `${acc.internalId}`
+          }
+        }
+      );
+
+      setOriginAccounts(accounts)
+
     } catch(e) {
-      console.error(e)
+      console.log(e)
     }
   }
 

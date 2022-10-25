@@ -23,11 +23,13 @@ const AccountsList = ({navigation}) => {
     setModalVisible(false);
   }
 
+
   const loadAccounts = async () =>{
     const response = await BankingService.getUserAccounts();
     const data = response.data;
     setAccounts(data.accounts);
   };
+
 
   useEffect(() => {
     loadAccounts();
@@ -45,7 +47,7 @@ const AccountsList = ({navigation}) => {
       setModalVisible(true)
       loadAccounts()
     } catch (error) {
-      console.error(error)
+
     }
   }
   return (

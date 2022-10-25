@@ -51,6 +51,7 @@ class BankingService extends BaseService {
 
       let data = await CacheService.getSecureItem('accounts')
 
+
       if(data == undefined) {
         CacheService.setSecureItem('accounts', []);
         data = [];
@@ -73,7 +74,6 @@ class BankingService extends BaseService {
 
           CacheService.setSecureItem('accounts', data);
         })
-        return data
 
       }
 
@@ -101,21 +101,19 @@ class BankingService extends BaseService {
      try {
 
        const savedAccounts = await CacheService.getSecureItem('accounts');
-       console.log(savedAccounts)
-       let loginDone = false;
        if(savedAccounts) {
          const account = savedAccounts.filter(acc => acc.internalId == internalId);
          if (account) {
             const responseLogin = await this.postLoginBank(account[0].credentials)
-            loginDone = true;
          }
        }
 
      } catch (error) {
        console.log(error)
-     }
 
-     const responseTrans = await this.post(POST_MAKE_TRANSFER, data);
+     }
+    const responseTrans = await this.post(POST_MAKE_TRANSFER, data);
+    console.log(responseTrans)
   }
 }
 
