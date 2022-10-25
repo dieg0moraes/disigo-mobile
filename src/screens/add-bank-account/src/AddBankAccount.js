@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Center from '../../../components/center';
 import { Text, StyleSheet, ActivityIndicator, Alert, BackHandler } from 'react-native';
 import BankingService from '../../../services/BankingService';
@@ -6,25 +8,26 @@ import InputText from '../../../wrappers/text-input';
 import Button from '../../../wrappers/button';
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { postAddAccountAsync } from '../../../stores/slices/accountsSlice'
 
 
 const AddBankAccount = ({ navigation, backCallback }) => {
 
+  const dispatcher = useDispatch();
+
   const [ username, setUsername ] = useState('');
+
   const [ password, setPassword ] = useState('');
+
   const [ provider, setProvider ] = useState('santander');
+
   const [ showDropDown, setShowDropDown ] = useState('santander');
+
   const [ providersList, setProvidersList ] = useState([]);
+
   const [ isFocus, setIsFocus ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
 
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress', backCallback
-    );
-
-    return backHandler.remove();
-  }, []);
+  const loading = useSelector(state => state.accounts.addAccountLoading);
 
   useEffect(() => {
     const getProviders = async () => {
@@ -34,43 +37,12 @@ const AddBankAccount = ({ navigation, backCallback }) => {
     getProviders();
   }, []);
 
-  const errorMessage = () =>
-    Alert.alert(
-      "Error",
-      "Revisa tus credenciales",
-      [
-        { text: "OK" }
-      ]
-    );
-
-  const okMessage = () =>
-    Alert.alert(
-      "Ok",
-      "Cuenta agregada",
-      [
-        { text: "OK" }
-      ]
-    );
-
   const handleOnSubmit = async () =>{
-    try {
-      const accountData = {
-        username: username,
-        provider: provider,
-        password: password
-      }
-      setLoading(true);
-
-      await BankingService.addAccount(accountData);
-      setLoading(false);
-
-      //okMessage()
-
-    } catch(error) {
-      setLoading(false)
-      errorMessage()
-      console.log(error)
-    }
+    dispatcher(postAddAccountAsync({
+      provider: provider,
+      username: username,
+      password: password
+    }));
   }
 
   const getProvidersItems = () => {
