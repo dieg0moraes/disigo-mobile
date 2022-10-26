@@ -5,7 +5,30 @@ import Contacts from 'react-native-contacts';
 
 
 const getContacts = async (thunk) => {
-  const contacts = await Contacts.getAll();
+
+  let contacts = [];
+
+  if (Platform.OS == 'android') {
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+        title: 'Contacts',
+        message: 'This app would like to view your contacts.',
+        buttonPositive: 'Please accept bare mortal',
+    }).then( () => {
+      Contacts.getAll()
+        .then(c => c)
+        .then(c => contacts = c)
+        .catch(e => console.error(e))
+    }
+    ).catch((error) => {
+        console.error('Permission error: ', error);
+    });
+
+  } else {
+    Contacts.getAll()
+      .then(c => c)
+      .then(c => setContacts(c))
+      .catch(e => console.error(e))
+  }
 
   const list = contacts.map(c => {
     return {

@@ -21,7 +21,6 @@ const ContactsScreen = ({ navigation }) => {
     () => {
       dispatcher(fetchContactActionAsync());
     }
-
   ,[]);
 
   const sanitizeNumer = (number) => {
