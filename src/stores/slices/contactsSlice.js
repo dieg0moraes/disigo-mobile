@@ -40,33 +40,6 @@ const getContacts = async (thunk) => {
   return list;
 
 };
-/*
-    if (Platform.OS == 'android') {
-      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-          title: 'Contacts',
-          message: 'This app would like to view your contacts.',
-          buttonPositive: 'Please accept bare mortal',
-      }).then( () => {
-        Contacts.getAll()
-          .then(c => c)
-          .then(c => setContacts(c))
-          .catch(e => console.error(e))
-      }
-      ).catch((error) => {
-          console.error('Permission error: ', error);
-      });
-
-    } else {
-      Contacts.getAll()
-        .then(c => c)
-        .then(c => setContacts(c))
-        .catch(e => console.error(e))
-    }
-    console.log(contacts)
-
-  }, [])
-
-*/
 
 export const fetchContactActionAsync = createAsyncThunk(
   'contacts/fetch',

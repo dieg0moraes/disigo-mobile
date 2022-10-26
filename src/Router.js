@@ -9,8 +9,6 @@ import AuthenticationStack from './stacks/authentication-stack';
 import AppTabs from './tabs/app-tabs';
 import { AuthContext } from '../src/providers/AuthProvider';
 import Modal from './components/modal';
-import { useDispatch } from 'react-redux';
-import { fetchContactActionAsync } from './stores/slices/contactsSlice';
 
 
 const Routes = ({}) => {
@@ -23,10 +21,6 @@ const Routes = ({}) => {
     dispatch(fetchContactActionAsync())
   }, []);
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
   useEffect(() => {
     async function checkLogin() {
       try {
