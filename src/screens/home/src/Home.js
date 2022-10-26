@@ -11,7 +11,7 @@ const Home = ({ navigation }) =>{
   const dispatch = useDispatch();
 
   const handleShowModal = () =>{
-    CacheService.setSecureItem('accounts', [])
+   // CacheService.setSecureItem('accounts', [])
     dispatch(showModal({message: 'Hola'}))
   };
 
