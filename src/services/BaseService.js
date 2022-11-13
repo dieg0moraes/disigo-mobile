@@ -5,7 +5,6 @@ import createAuthRefreshToken from 'axios-auth-refresh';
 //import { API_URL } from '@env';
 
 const BASE_API_URL = 'https://disigo-backend.diegomoraes.com';
-
 //const BASE_API_URL = Platform.OS === 'android' ? 'http://10.0.2.2:8000' : 'http://localhost:8000';
 
 

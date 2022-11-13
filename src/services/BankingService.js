@@ -14,12 +14,13 @@ import {
 } from './endpoints/BankingEndpoints';
 
 
+
 class BankingService extends BaseService {
   constructor(){
     super();
   }
 
-  deleteAccount = (data) => {
+  deleteAccount = async (data) => {
     const response = this.post(DELETE_ACCOUNT, data);
     return response;
   }
@@ -50,6 +51,7 @@ class BankingService extends BaseService {
       const response = await this.post(POST_CREATE_ACCOUNT, account);
 
       let data = await CacheService.getSecureItem('accounts')
+      console.log(response)
 
       if(data == undefined) {
         CacheService.setSecureItem('accounts', []);
@@ -101,7 +103,6 @@ class BankingService extends BaseService {
      try {
 
        const savedAccounts = await CacheService.getSecureItem('accounts');
-       console.log(savedAccounts)
        let loginDone = false;
        if(savedAccounts) {
          const account = savedAccounts.filter(acc => acc.internalId == internalId);

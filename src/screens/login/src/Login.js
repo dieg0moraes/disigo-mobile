@@ -1,48 +1,36 @@
 import React, { useContext, useState } from 'react';
 import { Text } from 'react-native';
 import Center from '../../../components/center';
-import Modal from '../../../components/modal';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { styles } from '../lib/styles'
 import Button from '../../../wrappers/button';
 import InputText from '../../../wrappers/text-input';
-
-
+import { useDispatch } from 'react-redux';
+import { showModal } from '../../../stores/slices/errorsSlice';
 
 const Login = ({ navigation }) => {
   const { login } = useContext(AuthContext);
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
-  const [ modalVisible, setModalVisible ] = useState(false);
-  const [ error, setError ] = useState('');
 
-  const onErrorCallback = (error) => {
-    setModalVisible(true)
-    setError('Revisa los datos ingresados')
-  }
+  const dispatcher = useDispatch();
 
-  const close = (e) => {
-    setModalVisible(false);
-  }
 
   const handleLogin = async () => {
     try {
       const result = await login({email, password})
       if (!result) {
-        setError('Revisa tus credenciales')
-        setModalVisible(true)
+        dispatcher(showModal({ message: 'Revisa tus credenciales'}));
       }
     } catch(e) {
-      console.log(e)
-      setModalVisible(true)
+      dispatcher(showModal({ message: 'Ups!'}));
     }
   }
 
   return(
     <>
       <Center>
-        <Modal error={error} visible={modalVisible} closeModal={close} />
-        <Text style={styles.header}>Bienvenido!</Text>
+        <Text style={styles.header}>Bienvenidssdao!</Text>
         <InputText
           type="default"
           value={email}

@@ -1,44 +1,61 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SafeAreaView, TouchableHighlight } from 'react-native';
-import Contacts from 'react-native-contacts';
+import { SafeAreaView, TouchableHighlight, ActivityIndicator, FlatList, Text } from 'react-native';
 import { List } from 'react-native-paper';
 import FriendsService from '../../../services/FriendsService';
-import Modal from '../../../components/modal';
 import TextInput from '../../../wrappers/text-input';
 import { useDispatch } from 'react-redux';
 import { showModal } from '../../../stores/slices/errorsSlice';
-import { fetchContactActionAsync } from '../../../stores/slices/contactsSlice';
+import { filterContacts } from '../../../stores/slices/contactsSlice';
 
 
 const ContactsScreen = ({ navigation }) => {
 
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(state => state.contacts.filteredContacts);
 
-  const dispatcher = useDispatch();
+  const [search, setSearch] = useState(null);
 
-  React.useEffect(
-    () => {
-      dispatcher(fetchContactActionAsync());
-    }
-  ,[]);
+  const [isPending, startTransition] = React.useTransition();
 
-  const sanitizeNumer = (number) => {
+  const dispatcher = useDispatch()
+
+  React.useEffect(() => {
+    startTransition(() => {
+      dispatcher(filterContacts({ search }))
+    });
+  }, [search]);
+
+
+  const searchContacts = (val) => {
+    setSearch(val);
+  }
+
+  const sanitizeNumber = (number) => {
     let onlyNumbers = number.replace('/\D/g', '');
-    onlyNumbers = onlyNumbers.replace(' ', '');
-    onlyNumbers = onlyNumbers.replace('-', '');
-    onlyNumbers = onlyNumbers.replace('(', '');
-    onlyNumbers = onlyNumbers.replace(')', '');
+    if(number) {
+      onlyNumbers = onlyNumbers.replace(' ', '');
+      onlyNumbers = onlyNumbers.replace(' ', '');
+      onlyNumbers = onlyNumbers.replace('-', '');
+      onlyNumbers = onlyNumbers.replace('(', '');
+      onlyNumbers = onlyNumbers.replace(')', '');
+      onlyNumbers = onlyNumbers.replace('+', '');
+      onlyNumbers = onlyNumbers.replace('tel:');
+    }
+
     return onlyNumbers;
   }
 
-  const onPressContact = async (contact) => {
+  const onPressContact = async ({item: contact}) => {
     const number = contact.number
-    const sanitized = sanitizeNumer(number);
+    const sanitized = sanitizeNumber(number);
 
     try {
       const resp = await FriendsService.findFriendByPhone(sanitized);
       const data = resp.data;
+      if (data['accounts'].length == 0) {
+        dispatcher(showModal({message: 'El usuario seleccionado no tiene una cuenta destino'}))
+        return;
+      }
 
       if (data['message'] !== 'not found') {
         navigation.navigate('SendMoneyScreen', {accounts: resp.data['accounts'] } );
@@ -52,10 +69,10 @@ const ContactsScreen = ({ navigation }) => {
   }
 
 
-  const renderContact = (c, k) => {
+  const renderContact = ({item}) => {
     return (
       <TouchableHighlight
-        onPress={() => onPressContact(c)}
+        onPress={() => onPressContact({item})}
         activeOpacity={0.8}
         underlayColor='grey'
         style={{
@@ -66,8 +83,7 @@ const ContactsScreen = ({ navigation }) => {
         }}
       >
         <List.Item
-          key={k}
-          title={c.name + " " + c.number}
+          title={item.name + " " + item?.number}
         />
       </TouchableHighlight>
     )
@@ -76,12 +92,20 @@ const ContactsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ paddingTop: 20}}>
-      <TextInput placeholder='Busqueda'/>
+      <TextInput placeholder='Busqueda'
+        value={search}
+        onChangeText={searchContacts}
+      />
       <List.Section>
         <List.Subheader>Contacts</List.Subheader>
-        { contacts &&
-          contacts.map((c, k) => renderContact(c, k))
-        }
+        { !isPending
+          ? <FlatList
+              data={contacts}
+              renderItem={renderContact}
+              estimatedSize={20}
+              keyExtractor={item => item.number}
+            />
+          : <ActivityIndicator/>}
       </List.Section>
     </SafeAreaView>
   );

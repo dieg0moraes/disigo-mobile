@@ -41,6 +41,8 @@ const AuthProvider = ({children}) => {
       await createContext();
       return true;
     } catch(error) {
+      console.error(error.response)
+      console.log(error.response)
       return false;
     }
   }

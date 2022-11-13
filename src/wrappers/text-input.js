@@ -15,7 +15,6 @@ const InputText = ({style, ...props}) => {
 
   const elementStyles = { ...inputStyles, ...style }
 
-
   return (
     <TextInput
      {...props}

@@ -3,7 +3,6 @@ import { Button, Card, Title, Paragraph, Text } from 'react-native-paper';
 import { Account } from '../../../models/AccountModel';
 
 const AccountCard = ({account, styles, handleDelete, handleLogin}) => {
-  console.log(account)
     return(
         <Card style={styles}>
             <Card.Content>

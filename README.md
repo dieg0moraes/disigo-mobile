@@ -9,3 +9,5 @@ npx react-natice run-ios
 npx react-natice run-android
 
 
+import contacts ios
+/usr/bin/xcrun simctl addmedia booted ~/contacts.vcf

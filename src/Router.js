@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { useDispatch } from 'react-redux';
-import { fetchContactActionAsync } from './stores/slices/contactsSlice';
 import { ActivityIndicator } from 'react-native';
 import Center from '../src/components/center';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,11 +13,7 @@ const Routes = ({}) => {
   const { user, doRefresh } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
-  const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch(fetchContactActionAsync())
-  }, []);
 
   useEffect(() => {
     async function checkLogin() {

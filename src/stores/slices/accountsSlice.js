@@ -44,10 +44,18 @@ const deleteAccountAsync = async (action, thunk) => {
     await BankingService.deleteAccount(data);
 
     const accounts = await CacheService.getSecureItem('accounts');
+    if(accounts) {
+      console.log(accounts)
 
-    accounts.filter(acc => acc.number != data.number && acc.provider != data.provider)
-    CacheService.setSecureItem('accounts', accounts);
+      accounts.filter(
+        acc => acc.number != data.number && acc.provider != data.provider
+      )
 
+      CacheService.setSecureItem('accounts', accounts);
+
+      console.log(accounts)
+
+    }
   } catch (e) {
     console.error(e);
     console.error('ERROR account deleted');
@@ -85,7 +93,7 @@ export const accountsSlice = createSlice({
         (acc) => {
           return {
             label: `${acc.name} - ${acc.number}`,
-            value: `${acc.internalId}`
+            value: `${acc.internal_id}`
           }
         }
       );
