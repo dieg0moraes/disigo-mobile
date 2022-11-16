@@ -14,7 +14,6 @@ const Routes = ({}) => {
   const [loading, setLoading] = useState(true);
 
 
-
   useEffect(() => {
     async function checkLogin() {
       try {

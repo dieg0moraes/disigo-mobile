@@ -7,6 +7,7 @@ import { showModal } from '../../../stores/slices/errorsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContactActionAsync } from '../../../stores/slices/contactsSlice';
 
+
 const Home = ({ navigation }) =>{
 
   const isFetchingContacts = useSelector(state => state.contacts.isFetchingContacts);
@@ -15,7 +16,7 @@ const Home = ({ navigation }) =>{
 
   React.useEffect(() => {
     dispatch(fetchContactActionAsync())
-  }, [ ]);
+  }, []);
 
 
   const handleShowModal = () =>{
@@ -31,8 +32,15 @@ const Home = ({ navigation }) =>{
             navigation.navigate('Contacts')
           }
         }}/>
-        <ActionButton action={{ text: 'Crear grupo' }} onPress={handleShowModal}/>
-    { isFetchingContacts.status == 'completed' && <Text>Fetching: {`${isFetchingContacts.error} - ${isFetchingContacts.status}`} </Text> }
+        <ActionButton action={{ text: 'Ver mi QR' }} onPress={ () => {
+            navigation.navigate('QRCode');
+        }
+        }/>
+
+        <ActionButton action={{ text: 'Escanear QR' }} onPress={ () => {
+            navigation.navigate('ReadQRCode');
+        }
+        }/>
       </View>
     </View>
   )
