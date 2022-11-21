@@ -2,6 +2,8 @@ package com.disigo_mobile;
 
 import android.app.Application;
 import android.content.Context;
+
+import com.disigo_mobile.BuildConfig;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;

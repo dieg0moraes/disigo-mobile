@@ -8,13 +8,49 @@ import { showModal } from '../../../stores/slices/errorsSlice';
 
 
 const ReadQRCodeScreen = ({ navigation }) => {
+
   const devices = useCameraDevices()
+
   const device = devices.back
+
   const dispatcher = useDispatch()
 
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-    checkInverted: true,
-  });
+  const [ error, setError ] = React.useState();
+
+  let [frameProcessor, barcodes] = [undefined, undefined]
+
+  try {
+    [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+      checkInverted: true,
+    });
+  } catch(error) {
+    console.log(error);
+  }
+
+  React.useEffect(() => {
+    if(barcodes && barcodes.length > 0) {
+      navigate(barcodes[0].displayValue)
+    }
+
+  }, [ barcodes ]);
+
+  React.useEffect(() => {
+    try {
+      const permissions = async () => {
+        const cameraPermission = await Camera.getCameraPermissionStatus()
+        if(cameraPermission === 'denied') {
+          await Camera.requestCameraPermission()
+        }
+     }
+      permissions()
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    }
+  }, []);
+
+
+
 
   const sanitizeNumber = (number) => {
     let onlyNumbers = number.replace('/\D/g', '');
@@ -51,23 +87,7 @@ const ReadQRCodeScreen = ({ navigation }) => {
     }
   }
 
-  React.useEffect(() => {
-    if(barcodes.length > 0) {
-      navigate(barcodes[0].displayValue)
-    }
-
-  }, [ barcodes ]);
-
-  React.useEffect(() => {
-    const permissions = async () => {
-      const cameraPermission = await Camera.getCameraPermissionStatus()
-      if(cameraPermission === 'denied') {
-        const newCameraPermission = await Camera.requestCameraPermission()
-      }
-    }
-    permissions()
-
-  }, []);
+  if(error) return <Text>error.toString()</Text>
 
   if(!device) return <Text>loading</Text>
 
