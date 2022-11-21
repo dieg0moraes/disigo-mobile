@@ -67,6 +67,7 @@ const ReadQRCodeScreen = ({ navigation }) => {
     return onlyNumbers;
   }
 
+// FIXME: refactorizar esto para que se vaya a redux, tambien se usa en la lista de contactos
   const navigate = async (number) => {
     try {
       const resp = await FriendsService.findFriendByPhone(number);
@@ -87,7 +88,6 @@ const ReadQRCodeScreen = ({ navigation }) => {
     }
   }
 
-  if(error) return <Text>error.toString()</Text>
 
   if(!device) return <Text>loading</Text>
 

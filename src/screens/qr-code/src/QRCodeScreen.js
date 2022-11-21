@@ -13,7 +13,6 @@ import {
 const QRCodeScreen = () => {
   const { user, doRefresh } = React.useContext(AuthContext);
   const phone = user['contact_phone'];
-  console.log('das')
 
   return (
     <Center>
