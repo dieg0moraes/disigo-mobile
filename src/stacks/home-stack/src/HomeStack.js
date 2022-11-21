@@ -5,6 +5,8 @@ import Home from '../../../screens/home';
 import { AuthContext } from '../../../providers/AuthProvider';
 import ContactsScreen from '../../../screens/contacts';
 import SendMoneyScreen from '../../../screens/send-money';
+import QRCodeScreen from '../../../screens/qr-code';
+import ReadQRCodeScreen from '../../../screens/read-qr-code';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +44,12 @@ export const HomeStack = () => {
       <Stack.Screen
         options={{ headerShown: true, title: '' }}
         name='SendMoneyScreen' component={SendMoneyScreen}/>
+      <Stack.Screen
+        options={{ headerShown: true, title: '' }}
+        name='QRCode' component={QRCodeScreen}/>
+      <Stack.Screen
+        options={{ headerShown: true, title: '' }}
+        name='ReadQRCode' component={ReadQRCodeScreen}/>
     </Stack.Navigator>
   );
 }

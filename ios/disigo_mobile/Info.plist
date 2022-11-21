@@ -57,5 +57,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-</dict>
+    <key>NSCameraUsageDescription</key>
+            <string>Permiso para usar la camara :)</string>
+
+            <!-- Include this only if you are planning to use the camera roll -->
+            <key>NSPhotoLibraryUsageDescription</key>
+            <string>Permiso para guardar fotos :)</string>
+
+            <!-- Include this only if you are planning to use the microphone for video recording -->
+            <key>NSMicrophoneUsageDescription</key>
+            <string>Permiso para grabar audio :)</string>
+    </dict>
 </plist>
