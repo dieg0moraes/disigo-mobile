@@ -10,8 +10,10 @@ class Api extends Axios   {
     this.token = '';
     this.interceptors.request.use( async (param) => {
         const token = await this.getToken();
-        if(token != null)
-            param.headers.common.Authorization = `Bearer ${token}`
+        if(token != null) {
+          console.log(token)
+          param.headers.common.Authorization = `Bearer ${token}`
+        }
         return {
             ...param,
         }
@@ -30,7 +32,7 @@ class Api extends Axios   {
   }
 
   getUri = (config) => {
-        return this.getUri(config);
+      return this.getUri(config);
   }
 
   request(config) {
@@ -38,14 +40,14 @@ class Api extends Axios   {
   }
 
   get(url, config) {
-    return this.get (url, config);
+    return this.get(url, config);
   }
 
   post(url, data, config) {
     return this.post (url, data, config);
   }
-  delete(url, data, config) {
 
+  delete(url, data, config) {
     return this.post (url, data, config);
   }
 }

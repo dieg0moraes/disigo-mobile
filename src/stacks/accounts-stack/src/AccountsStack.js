@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AccountsList from '../../../screens/accounts-list';
