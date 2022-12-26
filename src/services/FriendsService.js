@@ -7,7 +7,8 @@ import {
   GET_USER_GROUPS,
   POST_CREATE_USER_GROUP,
   GET_GROUP_EXPENSES,
-  GET_GROUP_BALANCES
+  GET_GROUP_BALANCES,
+  POST_GROUP_ADD_PARTICIPANT
 } from './endpoints/FriendsEndpoints';
 
 
@@ -34,6 +35,10 @@ class FriendsService extends BaseService {
 
   getGroupBalances = async (id) => {
     return this.get(GET_GROUP_BALANCES(id));
+  }
+
+  postAddParticipant = async (username, group_id) => {
+    return this.post(POST_GROUP_ADD_PARTICIPANT, { username, group_id });
   }
 }
 

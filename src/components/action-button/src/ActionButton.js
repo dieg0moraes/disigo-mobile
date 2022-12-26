@@ -13,7 +13,7 @@ const ActionButton = ({ action, ...props }) => {
 
     const [ isPress, setIsPress ] = React.useState(false);
 
-    var touchProps = {
+    const touchProps = {
         activeOpacity: 0,
         onHideUnderlay: () => setIsPress(false),
         onShowUnderlay: () => setIsPress(true),
