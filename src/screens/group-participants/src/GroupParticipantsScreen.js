@@ -16,7 +16,6 @@ const GroupParticipantsScreen = ({ navigation }) => {
   }, []);
 
 
-
   return (
     <ScrollView
       refreshControl={
