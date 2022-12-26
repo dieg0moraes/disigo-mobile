@@ -3,6 +3,8 @@ import { TouchableOpacity, Text } from 'react-native';
 import GroupsListScreen from '../../../screens/groups-list';
 import GroupDetailScreen from '../../../screens/group-detail';
 import AddGroupScreen from '../../../screens/add-group';
+import GroupParticipantsScreen from '../../../screens/group-participants';
+import GroupAddParticipantScreen from '../../../screens/group-add-participant/';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
@@ -50,6 +52,33 @@ const GroupsStack = () => {
         }}
         name='AddGroup'
         component={AddGroupScreen}
+      / >
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: 'Add Participant'
+        }}
+        name='AddParticipant'
+        component={GroupAddParticipantScreen}
+      / >
+      <Stack.Screen
+        options={({ navigation, route }) => ({
+          headerShown: true,
+          headerTitle: 'Group participants',
+          headerRight: () => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                      navigation.navigate('AddParticipant', { group: route.params['group']})
+                  }}
+                >
+                  <Text>Agregar Participante</Text>
+                </TouchableOpacity>
+              )
+        },
+        })}
+        name='GroupParticipants'
+        component={GroupParticipantsScreen}
       / >
     </Stack.Navigator>
   )

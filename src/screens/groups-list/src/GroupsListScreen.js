@@ -3,7 +3,7 @@ import { Text, SafeAreaView, ScrollAreaView, TouchableHighlight } from 'react-na
 import { List } from 'react-native-paper';
 import Center from '../../../components/center';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGroups } from '../../../stores/slices/groupsSlice';
+import { fetchGroups, selectGroupById } from '../../../stores/slices/groupsSlice';
 import { Card } from 'react-native-paper';
 
 const GroupsListScreen = ({ navigation }) => {
@@ -17,6 +17,7 @@ const GroupsListScreen = ({ navigation }) => {
   }, []);
 
   const redirectToGroupView = (group) => {
+    dispatcher(selectGroupById({id: group.expenses_group_id}))
     navigation.navigate('GroupDetail', { group })
   }
 

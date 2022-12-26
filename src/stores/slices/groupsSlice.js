@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { showModal } from './errorsSlice';
 import FriendsService from '../../services/FriendsService';
 
 
@@ -66,6 +67,26 @@ export const getGroupBalances = createAsyncThunk(
   fetchGroupBalances
 )
 
+const postAddParticipantToGroup = async (data, thunk) => {
+  try {
+    const response = await FriendsService.postAddParticipant(
+      data.username, data.groupId);
+
+    thunk.dispatch(showModal({message: 'Participante agregado'}))
+    return response.data;
+  } catch(error) {
+    thunk.dispatch(showModal({message: error.response?.data?.message}))
+    console.error(error);
+  }
+  return
+}
+
+
+export const addParticipantToGroup = createAsyncThunk(
+  'groups/participants/add',
+  postAddParticipantToGroup
+)
+
 
 export const groupsSlice = createSlice({
   name: 'groups',
@@ -73,14 +94,16 @@ export const groupsSlice = createSlice({
     groups: [],
     expenses: [],
     balances: [],
+    selectedGroup: null,
     isFetchingGroups: false,
     isFetchingExpenses: false,
     isFetchingBalances: false,
     isCreatingNewGroup: false
   },
   reducers:{
-    getGroups: (state, action) => {
-
+    selectGroupById: (state, action) => {
+      const id = action.payload.id;
+      state.selectedGroup = id
     }
   },
   extraReducers: (builder) => {
@@ -124,7 +147,19 @@ export const groupsSlice = createSlice({
       state.isFetchingBalances = false
       state.balances = action.payload.balances
     });
+
+    // add Participant
+    builder.addCase(addParticipantToGroup.pending, (state, action) => {
+      state.isFetchingGroups = true
+    });
+
+    builder.addCase(addParticipantToGroup.fulfilled, (state, action) => {
+      state.isFetchingGroups = false
+    });
   }
 })
+
+// Action creators are generated for each case reducer function
+export const { selectGroupById } = groupsSlice.actions
 
 export default groupsSlice.reducer;
