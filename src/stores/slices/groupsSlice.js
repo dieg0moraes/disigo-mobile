@@ -39,7 +39,6 @@ const fetchGroupExpenses = async (id, thunk) => {
     const response = await FriendsService.getGroupExpenses(id);
     return response.data;
   } catch(error) {
-    console.log("lareputamadre")
     console.error(error);
   }
   return
@@ -51,14 +50,32 @@ export const getGroupExpenses = createAsyncThunk(
   fetchGroupExpenses
 )
 
+const fetchGroupBalances = async (id, thunk) => {
+  try {
+    const response = await FriendsService.getGroupBalances(id);
+    return response.data;
+  } catch(error) {
+    console.error(error);
+  }
+  return
+}
+
+
+export const getGroupBalances = createAsyncThunk(
+  'groups/balances',
+  fetchGroupBalances
+)
+
 
 export const groupsSlice = createSlice({
   name: 'groups',
   initialState: {
     groups: [],
     expenses: [],
+    balances: [],
     isFetchingGroups: false,
     isFetchingExpenses: false,
+    isFetchingBalances: false,
     isCreatingNewGroup: false
   },
   reducers:{
@@ -88,13 +105,24 @@ export const groupsSlice = createSlice({
       state.isCreatingNewGroup = false
     });
 
+    // expenses
     builder.addCase(getGroupExpenses.pending, (state, action) => {
       state.isFetchingExpenses = true
     });
 
     builder.addCase(getGroupExpenses.fulfilled, (state, action) => {
       state.isFetchingExpenses = false
-      state.expenses = action.payload.data
+      state.expenses = action.payload.expenses
+    });
+
+    // balances
+    builder.addCase(getGroupBalances.pending, (state, action) => {
+      state.isFetchingBalances = true
+    });
+
+    builder.addCase(getGroupBalances.fulfilled, (state, action) => {
+      state.isFetchingBalances = false
+      state.balances = action.payload.balances
     });
   }
 })

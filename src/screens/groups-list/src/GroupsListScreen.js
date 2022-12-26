@@ -31,7 +31,8 @@ const GroupsListScreen = ({ navigation }) => {
           backgroundColor: 'white',
           borderRadius: 50,
           marginBottom: 2,
-          marginHorizontal: 5
+          marginHorizontal: 5,
+          width: 150
         }}
       >
         <List.Item title={group.name}/>

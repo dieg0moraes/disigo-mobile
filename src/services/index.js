@@ -11,7 +11,6 @@ class Api extends Axios   {
     this.interceptors.request.use( async (param) => {
         const token = await this.getToken();
         if(token != null) {
-          console.log(token)
           param.headers.common.Authorization = `Bearer ${token}`
         }
         return {

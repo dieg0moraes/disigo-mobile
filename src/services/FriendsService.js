@@ -6,7 +6,8 @@ import {
   GET_FIND_FRIEND_BY_PHONE,
   GET_USER_GROUPS,
   POST_CREATE_USER_GROUP,
-  GET_GROUP_EXPENSES
+  GET_GROUP_EXPENSES,
+  GET_GROUP_BALANCES
 } from './endpoints/FriendsEndpoints';
 
 
@@ -29,6 +30,10 @@ class FriendsService extends BaseService {
 
   getGroupExpenses = async (id) => {
     return this.get(GET_GROUP_EXPENSES(id));
+  }
+
+  getGroupBalances = async (id) => {
+    return this.get(GET_GROUP_BALANCES(id));
   }
 }
 

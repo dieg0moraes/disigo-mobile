@@ -12,6 +12,5 @@ export const store = configureStore({
     errors: errorsSlice,
     groups: groupsSlice
   },
-    // do not forget this
   devTools: process.env.NODE_ENV !== 'production',
 })
