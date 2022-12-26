@@ -1,8 +1,6 @@
 import React, { useState }from 'react';
 import Cache from '../services/CacheService';
 import AuthService from '../services/AuthService';
-import { LoginCredentials } from '../models/Credential';
-import { RefreshCredentials } from '../services/requests/RefreshCredentials';
 
 
 export const AuthContext = React.createContext({
