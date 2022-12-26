@@ -18,7 +18,6 @@ const GroupAddParticipantScreen = ({ route }) => {
     dispatcher(addParticipantToGroup({username, groupId: group.expenses_group_id}))
   }
 
-
   return (
 
     <Center>
