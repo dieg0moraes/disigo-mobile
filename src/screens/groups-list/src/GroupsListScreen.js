@@ -1,14 +1,14 @@
 import React from 'react';
-import { Text, SafeAreaView, ScrollAreaView, TouchableHighlight } from 'react-native';
+import { RefreshControl, ScrollView, TouchableHighlight } from 'react-native';
 import { List } from 'react-native-paper';
 import Center from '../../../components/center';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGroups, selectGroupById } from '../../../stores/slices/groupsSlice';
-import { Card } from 'react-native-paper';
 
 const GroupsListScreen = ({ navigation }) => {
 
   const groups = useSelector(state => state.groups?.groups)
+  const refreshing = useSelector(state => state.groups?.isFetchingGroups)
 
   const dispatcher = useDispatch();
 
@@ -42,13 +42,26 @@ const GroupsListScreen = ({ navigation }) => {
 
   }
 
+  const onRefresh = () => {
+    dispatcher(fetchGroups())
+  }
+
   return(
-    <Center>
-      <List.Section>
-        <List.Subheader>Groups</List.Subheader>
-      { groups && groups.map(g => renderGroup(g))}
-      </List.Section>
-    </Center>
+    <ScrollView
+      refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+      }
+    >
+      <Center>
+        <List.Section>
+          <List.Subheader>Groups</List.Subheader>
+        { groups && groups.map(g => renderGroup(g))}
+        </List.Section>
+      </Center>
+    </ScrollView>
   );
 }
 

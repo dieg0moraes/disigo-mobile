@@ -8,7 +8,8 @@ import {
   POST_CREATE_USER_GROUP,
   GET_GROUP_EXPENSES,
   GET_GROUP_BALANCES,
-  POST_GROUP_ADD_PARTICIPANT
+  POST_GROUP_ADD_PARTICIPANT,
+  POST_GROUP_ADD_EXPENSE,
 } from './endpoints/FriendsEndpoints';
 
 
@@ -39,6 +40,12 @@ class FriendsService extends BaseService {
 
   postAddParticipant = async (username, group_id) => {
     return this.post(POST_GROUP_ADD_PARTICIPANT, { username, group_id });
+  }
+
+  postAddNewExpense = async (group_id, participants, title, total_amount, payed_by) => {
+    return this.post(POST_GROUP_ADD_EXPENSE, {
+      group_id, participants, title, total_amount, payed_by 
+    });
   }
 }
 

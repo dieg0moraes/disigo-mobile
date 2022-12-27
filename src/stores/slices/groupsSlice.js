@@ -71,7 +71,6 @@ const postAddParticipantToGroup = async (data, thunk) => {
   try {
     const response = await FriendsService.postAddParticipant(
       data.username, data.groupId);
-
     thunk.dispatch(showModal({message: 'Participante agregado'}))
     return response.data;
   } catch(error) {
@@ -87,6 +86,24 @@ export const addParticipantToGroup = createAsyncThunk(
   postAddParticipantToGroup
 )
 
+const postAddExpenseToGroup = async (data, thunk) => {
+  console.log(data)
+  try {
+    const response = await FriendsService.postAddNewExpense(
+      data.groupId, data.participants, data.title, data.totalAmount, data.payedBy);
+    thunk.dispatch(showModal({message: 'Gasto agregado'}))
+    return response.data;
+  } catch(error) {
+    thunk.dispatch(showModal({message: error.response?.data?.message}))
+    console.error(error);
+  }
+  return
+}
+
+export const addExpenseToGroup = createAsyncThunk(
+  'groups/expense/add',
+  postAddExpenseToGroup
+)
 
 export const groupsSlice = createSlice({
   name: 'groups',
