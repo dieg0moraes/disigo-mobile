@@ -9,6 +9,7 @@
     "start-ios": "react-native start",
     "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "test": "jest",
+    "postinstall": "node ./android/fixAndroid/android-release-fix.js",
     "lint": "eslint ."
   },
   "dependencies": {
