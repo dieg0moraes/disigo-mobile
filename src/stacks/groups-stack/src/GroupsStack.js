@@ -1,11 +1,13 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import GroupsListScreen from '../../../screens/groups-list';
 import GroupDetailScreen from '../../../screens/group-detail';
 import AddGroupScreen from '../../../screens/add-group';
 import GroupParticipantsScreen from '../../../screens/group-participants';
 import GroupAddParticipantScreen from '../../../screens/group-add-participant/';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import GroupAddExpenseScreen from '../../../screens/group-add-expense/';
 
 
 const Stack = createNativeStackNavigator();
@@ -60,6 +62,14 @@ const GroupsStack = () => {
         }}
         name='AddParticipant'
         component={GroupAddParticipantScreen}
+      / >
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: 'Add Expense'
+        }}
+        name='AddExpense'
+        component={GroupAddExpenseScreen}
       / >
       <Stack.Screen
         options={({ navigation, route }) => ({

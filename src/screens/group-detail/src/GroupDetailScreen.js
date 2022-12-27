@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroupExpenses, getGroupBalances } from '../../../stores/slices/groupsSlice';
-import { Text, FlatList, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, FlatList, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import ExpenseCard from '../../../components/expense-card';
 import ActionButton from '../../../components/action-button/';
 
@@ -21,6 +21,14 @@ const GroupDetailScreen = ({ route, navigation }) => {
     dispatcher(getGroupBalances(group?.expenses_group_id))
   },[])
 
+  const refreshing = useSelector(
+    state => state.groups.isFetchingBalances ||state.groups.isFetchingExpenses)
+
+  const onRefresh = () => {
+    dispatcher(getGroupExpenses(group?.expenses_group_id))
+    dispatcher(getGroupBalances(group?.expenses_group_id))
+  }
+
   const renderUserPayments = (user) => {
     const payments = balances[user];
 
@@ -30,6 +38,33 @@ const GroupDetailScreen = ({ route, navigation }) => {
       </>
     )
   }
+
+  // the group balances comes in this format
+  // translated means
+  // users who owns to
+  // argentina will receive payments of diegomoraes and edgar98
+  /*
+     "balances": {
+        "argentina": {
+            "diegomoraes": 2900.0,
+            "edgar98": 410.3333333333333
+        },
+        "pruebita": {
+            "diegomoraes": 900.0,
+            "argentina": 1000.0
+        },
+        "diegomoraes": {
+            "argentina": 1000.0
+        },
+        "prueba": {
+            "diegomoraes": 500.0
+        },
+        "denisechang": {
+            "edgar98": 410.3333333333333
+        }
+    }
+    *
+  */
 
   const renderUserBalance = (user) => {
     return (
@@ -41,13 +76,22 @@ const GroupDetailScreen = ({ route, navigation }) => {
         { renderUserPayments (user) }
       </View>
     )
-
   }
 
-
   return (
-    <ScrollView>
-      <ActionButton action={{text:'Participantes'}} onPress={ () => navigation.navigate('GroupParticipants', { group })}/>
+    <ScrollView
+      refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+      }
+    >
+      <View style={{ display: 'flex', flexDirection: 'row'}}>
+        <ActionButton action={{text:'Participantes'}} onPress={ () => navigation.navigate('GroupParticipants', { group })}/>
+        <ActionButton action={{text:'Gastos'}} onPress={ () => navigation.navigate('AddExpense', { group })}/>
+      </View>
+      
       <Text>Resumen</Text>
       { balances && Object.keys(balances).map(user => renderUserBalance(user)) }
       <Text>Gastos</Text>
