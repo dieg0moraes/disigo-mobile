@@ -1,16 +1,19 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Center from '../../../components/center/';
 import InputText from '../../../wrappers/text-input';
 import Button from '../../../wrappers/button';
 import { addParticipantToGroup } from '../../../stores/slices/groupsSlice';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const GroupAddParticipantScreen = ({ route }) => { 
 
   const [username, setUsername] = React.useState('');
-  const group = route.params['group']
+
+  const group = useSelector(state => state.groups.groups
+    .find(g => g.expenses_group_id == state.groups.selectedGroup));
 
   const dispatcher = useDispatch();
 

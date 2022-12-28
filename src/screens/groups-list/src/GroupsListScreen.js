@@ -1,8 +1,9 @@
 import React from 'react';
-import { RefreshControl, ScrollView, TouchableHighlight } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import { List } from 'react-native-paper';
 import Center from '../../../components/center';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { fetchGroups, selectGroupById } from '../../../stores/slices/groupsSlice';
 
 const GroupsListScreen = ({ navigation }) => {
@@ -23,23 +24,13 @@ const GroupsListScreen = ({ navigation }) => {
 
   const renderGroup = (group) => {
     return (
-      <TouchableHighlight
-        key={group.name + "touch"}
-        onPress={() => redirectToGroupView(group)}
-        activeOpacity={0.8}
-        underlayColor='grey'
-        style={{
-          backgroundColor: 'white',
-          borderRadius: 50,
-          marginBottom: 2,
-          marginHorizontal: 5,
-          width: 150
-        }}
-      >
-        <List.Item title={group.name}/>
-      </TouchableHighlight>
+        <List.Item
+            centered
+            left={() => <Icon size={20} name="group"/>}
+            title={group.name}
+            onPress={() => redirectToGroupView(group)}
+        />
     )
-
   }
 
   const onRefresh = () => {
@@ -55,7 +46,7 @@ const GroupsListScreen = ({ navigation }) => {
           />
       }
     >
-      <Center>
+      <Center styles={{alignItems: 'stretch'}}>
         <List.Section>
           <List.Subheader>Groups</List.Subheader>
         { groups && groups.map(g => renderGroup(g))}

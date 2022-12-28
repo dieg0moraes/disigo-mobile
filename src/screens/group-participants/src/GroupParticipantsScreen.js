@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, ScrollView, RefreshControl} from 'react-native';
+import { ScrollView, RefreshControl} from 'react-native';
+import { List, Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGroups } from '../../../stores/slices/groupsSlice';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const GroupParticipantsScreen = ({ navigation }) => {
 
@@ -15,6 +17,20 @@ const GroupParticipantsScreen = ({ navigation }) => {
     dispatcher(fetchGroups())
   }, []);
 
+  const deleteParticipant = (p) => {
+      console.log(p)
+
+  }
+
+  const renderParticipant = (participant) => {
+      return(
+          <List.Item
+              title={participant.username}
+              left={p => (<Icon name="delete" size={30} onPress={(p) => deleteParticipant(participant)}/>)}
+          />
+      )
+  }
+
 
   return (
     <ScrollView
@@ -25,8 +41,8 @@ const GroupParticipantsScreen = ({ navigation }) => {
           />
       }
     >
-
-     { group && group.participants?.map(p => <Text>{p.username}</Text>)}
+     <Text variant="displaySmall">Participantes</Text>
+        { group && group.participants?.map(p => renderParticipant(p))}
     </ScrollView>
   )
 }

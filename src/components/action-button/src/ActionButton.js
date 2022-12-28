@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableHighlight } from 'react-native';
 import { styles } from '../lib/styles'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ActionText = ({ text }) => {
   return (

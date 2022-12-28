@@ -87,7 +87,6 @@ export const addParticipantToGroup = createAsyncThunk(
 )
 
 const postAddExpenseToGroup = async (data, thunk) => {
-  console.log(data)
   try {
     const response = await FriendsService.postAddNewExpense(
       data.groupId, data.participants, data.title, data.totalAmount, data.payedBy);

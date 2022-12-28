@@ -38,7 +38,7 @@ const GroupsStack = () => {
         })}
         name='GroupsList'
         component={GroupsListScreen}
-      / >
+      />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -46,7 +46,7 @@ const GroupsStack = () => {
         }}
         name='GroupDetail'
         component={GroupDetailScreen}
-      / >
+      />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -54,7 +54,7 @@ const GroupsStack = () => {
         }}
         name='AddGroup'
         component={AddGroupScreen}
-      / >
+      />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -62,7 +62,7 @@ const GroupsStack = () => {
         }}
         name='AddParticipant'
         component={GroupAddParticipantScreen}
-      / >
+      />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -70,16 +70,16 @@ const GroupsStack = () => {
         }}
         name='AddExpense'
         component={GroupAddExpenseScreen}
-      / >
+      />
       <Stack.Screen
-        options={({ navigation, route }) => ({
+        options={({ navigation }) => ({
           headerShown: true,
           headerTitle: 'Group participants',
           headerRight: () => {
               return (
                 <TouchableOpacity
                   onPress={() => {
-                      navigation.navigate('AddParticipant', { group: route.params['group']})
+                      navigation.navigate('AddParticipant')
                   }}
                 >
                   <Text>Agregar Participante</Text>
@@ -89,9 +89,8 @@ const GroupsStack = () => {
         })}
         name='GroupParticipants'
         component={GroupParticipantsScreen}
-      / >
-    </Stack.Navigator>
-  )
+      />
+    </Stack.Navigator>)
 }
 
 
