@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroupExpenses, getGroupBalances } from '../../../stores/slices/groupsSlice';
-import { Text, FlatList, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import {Text, View, StyleSheet, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
 import ExpenseCard from '../../../components/expense-card';
 import ActionButton from '../../../components/action-button/';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const GroupDetailScreen = ({ route, navigation }) => {
@@ -87,11 +88,42 @@ const GroupDetailScreen = ({ route, navigation }) => {
           />
       }
     >
-      <View style={{ display: 'flex', flexDirection: 'row'}}>
-        <ActionButton action={{text:'Participantes'}} onPress={ () => navigation.navigate('GroupParticipants', { group })}/>
-        <ActionButton action={{text:'Gastos'}} onPress={ () => navigation.navigate('AddExpense', { group })}/>
+      <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+          }}
+      >
+
+      <View style={{
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        paddingTop: 40,
+        paddingBottom:40,
+        marginTop: 25,
+        backgroundColor: 'white',
+        borderRadius: 30
+      }}>
+        <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('GroupParticipants')
+            }}>
+          <Icon name="person-add" size={50}/>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('AddExpense')
+            }}>
+          <Icon name="attach-money" size={50}/>
+        </TouchableOpacity>
       </View>
       
+      </View>
       <Text>Resumen</Text>
       { balances && Object.keys(balances).map(user => renderUserBalance(user)) }
       <Text>Gastos</Text>

@@ -9,6 +9,9 @@ const ExpenseCard = ({title, totalAmount, styles}) => {
                 <Title>{title}</Title>
                 <Paragraph>{totalAmount}</Paragraph>
             </Card.Content>
+            <Card.Actions>
+                <Button>Eliminar</Button>
+            </Card.Actions>
         </Card>
     );
 }

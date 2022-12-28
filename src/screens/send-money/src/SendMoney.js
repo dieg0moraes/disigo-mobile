@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAccounts } from '../../../stores/slices/accountsSlice';
 import { showModal } from '../../../stores/slices/errorsSlice';
 
-import { Text, StyleSheet, ActivityIndicator, Alert, BackHandler } from 'react-native';
+import { Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Center from '../../../components/center';
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -12,10 +12,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import InputText from '../../../wrappers/text-input';
 import Button from '../../../wrappers/button';
 
-import CacheService from '../../../services/CacheService';
 import BankingService from '../../../services/BankingService';
 
-const SendMoney = ({route, navigation}) => {
+const SendMoney = ({route }) => {
 
   const [ amount, setAmount ] = React.useState(0);
   const [ concept, setConcept ] = React.useState(0);

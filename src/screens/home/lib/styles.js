@@ -22,16 +22,18 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-
+        alignItems: 'center',
         paddingTop: 40,
         paddingBottom:40,
-
         marginTop: 25,
-
         backgroundColor: 'white',
         borderRadius: 30
+    },
+    btnNormal: {
+        alignItems: 'center',
+        activeOpacity: 0.85,
+        underlayColor: 'red',
     }
-
 });
 
 export {
